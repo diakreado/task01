@@ -109,9 +109,39 @@ public class DepthFirstSearchTest {
         GraphTest g = new GraphTest();
 
         Graph.Vertex start = new VertexTest("A");
-        Graph.Vertex finish = new VertexTest("C");
+        Graph.Vertex finish = new VertexTest("B");
 
-        System.out.println(dfs(g,start,finish));
+        assertEquals(dfs(g,start,finish),1);
+    }
+    @Test
+    public void dfsVerify1() throws Exception {
+
+        GraphTest g = new GraphTest();
+
+        Graph.Vertex start = new VertexTest("A");
+        Graph.Vertex finish = new VertexTest("E");
+
+        assertEquals(dfs(g,start,finish), 2);
+    }
+    @Test
+    public void dfsVerify2() throws Exception {
+
+        GraphTest g = new GraphTest();
+
+        Graph.Vertex start = new VertexTest("A");
+        Graph.Vertex finish = new VertexTest("F");
+
+        assertEquals(dfs(g,start,finish), 3);
+    }
+    @Test
+    public void dfsVerify3() throws Exception {
+
+        GraphTest g = new GraphTest();
+
+        Graph.Vertex start = new VertexTest("C");
+        Graph.Vertex finish = new VertexTest("F");
+
+        assertEquals(dfs(g,start,finish), 3);
     }
 
 }

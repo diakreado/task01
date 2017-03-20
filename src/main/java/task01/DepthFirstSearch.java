@@ -5,40 +5,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class DepthFirstSearch {
+class DepthFirstSearch {
+
+    private static int shortestWay = 0;
 
     static int dfs(Graph g, Graph.Vertex start, Graph.Vertex finish) {
 
-        List<Graph.Vertex> way = new ArrayList<Graph.Vertex>();
-        way.add(start);
+        List<Graph.Vertex> currentWay = new ArrayList<Graph.Vertex>();
 
-        findWay(g,start,finish,way);
+        currentWay.add(start);
 
-        for (Graph.Vertex v : way)
-            System.out.println(v.getName());
+        findWay(g,start,finish,currentWay);
 
-        return way.size() - 1;
+        return --shortestWay;
     }
 
-    private static boolean findWay(Graph g, Graph.Vertex start, Graph.Vertex finish,List<Graph.Vertex> way) {
+    private static void findWay(Graph g, Graph.Vertex start, Graph.Vertex finish,List<Graph.Vertex> currentWay) {
 
         Set<Graph.Vertex> neighbors = g.getNeighbors(start);
 
         for(Graph.Vertex neighbor : neighbors) {
 
-            if(way.contains(neighbor))
+            if(currentWay.contains(neighbor))
                 continue;
 
-            way.add(neighbor);
+            currentWay.add(neighbor);
 
-            if(neighbor.equals(finish)  || findWay(g,neighbor,finish,way)) {
-                 return true;
+            if(neighbor.equals(finish) && (shortestWay == 0 || shortestWay > currentWay.size())) {
+
+                shortestWay = currentWay.size();
             }
-            else {
-                way.remove(way.size() - 1);
-            }
+
+            findWay(g,neighbor,finish,currentWay);
+
+            currentWay.remove(currentWay.size() - 1);
         }
-
-        return false;
     }
 }
